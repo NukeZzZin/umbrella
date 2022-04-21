@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "CommonJS",
+        "outDir": "build",
+        "lib": [
+            "ESNext",
+            "ESNext.Array",
+            "ESNext.AsyncIterable",
+            "ESNext.Intl",
+            "ESNext.Symbol",
+            "DOM"
+        ],
+        "allowJs": true,
+        "declaration": true,
+        "isolatedModules": true,
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "strict": true,
+        "incremental": true,
+        "removeComments": false,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true 
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
+}
