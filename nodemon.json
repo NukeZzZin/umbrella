@@ -1,0 +1,5 @@
+{
+    "watch": ["./src/**/*"],
+    "ignore": ["./src/**/*.spec.ts", "./src/**/*.test.ts", "./src/**/*.spec.js", "./src/**/*.test.js"],
+    "exec": "tsc && node ./build/index.js"
+}

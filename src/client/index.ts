@@ -15,7 +15,7 @@ client.on("ready", () => {
 });
 
 process.on("uncaughtException", (error) => {
-    logger.error(error)
+    logger.error(error);
     return logger.write(error, "error");
 });
 

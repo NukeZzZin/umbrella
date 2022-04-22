@@ -5,15 +5,17 @@ import * as os from "os";
 
 import "dotenv/config";
 
-const manager = new Discord.ShardingManager(path.resolve(__dirname, "../src/client/index.ts"), {
+const manager = new Discord.ShardingManager(path.resolve(__dirname, "../build/client/index.js"), {
     totalShards: os.cpus().length,
     token: process.env.DISCORD_TOKEN,
     respawn: true
 });
 
 manager.on("shardCreate", (shard) => {
-    console.clear()
-    logger.success(`Shard created with id ${shard.id.toString(16)} (${shard.id}).`);
+    logger.success(`Shard created with id 0x${shard.id.toString(16)} (${shard.id}) - [${shard.id} of ${manager.totalShards}].`);
 });
 
-manager.spawn();
+manager.spawn().catch((error) => {
+    logger.error(error);
+    return logger.write(error, "error");
+});
