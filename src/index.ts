@@ -5,7 +5,7 @@ import * as os from "os";
 
 import "dotenv/config";
 
-const manager = new Discord.ShardingManager(path.resolve(__dirname, "../build/client/index.js"), {
+const manager = new Discord.ShardingManager(path.resolve(__dirname, "../src/client/index.ts"), {
     totalShards: os.cpus().length,
     token: process.env.DISCORD_TOKEN,
     respawn: true

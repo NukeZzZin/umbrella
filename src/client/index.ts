@@ -14,4 +14,9 @@ client.on("ready", () => {
     logger.info(`Bot invite link is https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&scope=bot&permissions=2080374975.`);
 });
 
+process.on("uncaughtException", (error) => {
+    logger.error(error)
+    return logger.write(error, "error");
+});
+
 client.login(process.env.DISCORD_TOKEN);
