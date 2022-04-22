@@ -6,19 +6,19 @@ import fs from "fs";
 
 export default class logger {
     public static success(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.green("SUCCESS")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${message} ${util.format(..._message)}`);
+		return console.log(`[${chalk.green("SUCCESS")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
     }
 
     public static error(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.red("ERROR")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${message} ${util.format(..._message)}`);
+		return console.log(`[${chalk.red("ERROR")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
 	}
 
 	public static info(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.cyan("INFO")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${message} ${util.format(..._message)}`);
+		return console.log(`[${chalk.cyan("INFO")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
 	}
 
 	public static test(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.yellow("TEST")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${message} ${util.format(..._message)}`);
+		return console.log(`[${chalk.yellow("TEST")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
 	}
 
     public static async write(message: any, mode: "error" | "warn" | "test" | "info" ): Promise<boolean> {
