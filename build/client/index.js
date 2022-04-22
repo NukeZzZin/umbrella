@@ -14,6 +14,13 @@ client.on("ready", () => {
     logger_1.default.info(`Bot running in version ${process.env.VERSION}.`);
     logger_1.default.info(`Released under the ${process.env.LICENSE}.`);
     logger_1.default.info(`Bot invite link is https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&scope=bot&permissions=2080374975.`);
+    client.user?.setPresence({
+        activities: [{
+                name: "⚔️ No, I’m not feeling violent, I’m feeling creative with weapons. ⚔️",
+                type: "PLAYING"
+            }],
+        status: "dnd"
+    });
 });
 process.on("uncaughtException", (error) => {
     logger_1.default.error(error);
