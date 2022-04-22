@@ -8,7 +8,6 @@ const client = new Discord.Client({
 });
 
 client.on("ready", () => {
-    console.clear();
     logger.success(`Bot running processID is 0x${process.pid.toString(16)} (${process.pid}).`);
     logger.info(`Bot running in version ${process.env.VERSION}.`);
     logger.info(`Released under the ${process.env.LICENSE}.`);
