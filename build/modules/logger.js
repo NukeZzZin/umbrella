@@ -10,16 +10,16 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 class logger {
     static success(message, ..._message) {
-        return console.log(`[${chalk_1.default.green("SUCCESS")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${message} ${util_1.default.format(..._message)}`);
+        return console.log(`[${chalk_1.default.green("SUCCESS")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${util_1.default.format(message)} ${util_1.default.format(..._message)}`);
     }
     static error(message, ..._message) {
-        return console.log(`[${chalk_1.default.red("ERROR")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${message} ${util_1.default.format(..._message)}`);
+        return console.log(`[${chalk_1.default.red("ERROR")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${util_1.default.format(message)} ${util_1.default.format(..._message)}`);
     }
     static info(message, ..._message) {
-        return console.log(`[${chalk_1.default.cyan("INFO")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${message} ${util_1.default.format(..._message)}`);
+        return console.log(`[${chalk_1.default.cyan("INFO")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${util_1.default.format(message)} ${util_1.default.format(..._message)}`);
     }
     static test(message, ..._message) {
-        return console.log(`[${chalk_1.default.yellow("TEST")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${message} ${util_1.default.format(..._message)}`);
+        return console.log(`[${chalk_1.default.yellow("TEST")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${util_1.default.format(message)} ${util_1.default.format(..._message)}`);
     }
     static async write(message, mode) {
         const stream = await fs_1.default.createWriteStream(path_1.default.join(__dirname, `../../logs/${mode}_${(0, moment_1.default)().format("YYYY-MM-DD")}.log`), { encoding: "utf-8", flags: "a" });
