@@ -1,18 +1,18 @@
-import logger from "./modules/logger";
+import logger from "./src/modules/logger";
 import Discord from "discord.js";
+import * as path from "path";
+import * as os from "os";
 
 import "dotenv/config";
 
-const client = new Discord.Client({
-    intents: [new Discord.Intents(0x7FFF)]
+const manager = new Discord.ShardingManager(path.resolve(__dirname, "./src/index.js"), {
+    totalShards: os.cpus().length,
+    token: process.env.DISCORD_TOKEN,
+    respawn: true
 });
 
-client.on("ready", () => {
-    console.clear();
-    logger.success(`Bot running processID is 0x${process.pid.toString(16)} (${process.pid}).`);
-    logger.info(`Bot running in version ${process.env.VERSION}.`);
-    logger.info(`Released under the ${process.env.LICENSE}.`);
-    logger.info(`Bot invite link is https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&scope=bot&permissions=2080374975.`);
+manager.on("shardCreate", (shard) => {
+    logger.success(`Shard created with id ${shard.id.toString(16)} (${shard.id}).`);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+manager.spawn();
