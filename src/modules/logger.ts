@@ -31,9 +31,7 @@ class Logger {
 
     public static async write(mode: WriteTypes = WriteTypes.Error, message?: any, ..._message: any[]): Promise<boolean> {
         const stream = await fs.createWriteStream(path.join(__dirname, `../../logs/${mode}_${moment().format("YYYY-MM-DD")}.log`), { encoding: "utf-8", flags: "a" });
-        return stream.write(`[${mode.toUpperCase()}] ${moment().toISOString(true)}: ${message}\r\n`, (error) => {
-            return this.error(error);
-        });
+        return stream.write(`[${mode.toUpperCase()}] ${moment().toISOString(true)}: ${message}\r\n`);
     }
 }
 

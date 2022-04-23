@@ -6,7 +6,7 @@ import * as os from "os";
 import "dotenv/config";
 
 const manager = new Discord.ShardingManager(path.resolve(__dirname, "../build/client/index.js"), {
-    totalShards: os.cpus().length,
+    totalShards: os.cpus().length+10,
     token: process.env.DISCORD_TOKEN,
     respawn: true
 });
@@ -18,5 +18,5 @@ manager.on("shardCreate", (shard) => {
 
 manager.spawn().catch((error) => {
     logger.Logger.error(error);
-    return logger.Logger.write(error, "error");
+    return logger.Logger.write(logger.WriteTypes.Error, error);
 });

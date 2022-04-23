@@ -21,10 +21,11 @@ client.on("ready", () => {
             }],
         status: "dnd"
     });
+    logger_1.default.Logger.write(logger_1.default.WriteTypes.Info, `Bot or Shard running processID is 0x${process.pid.toString(16)} (${process.pid}).`);
 });
 client.login(process.env.DISCORD_TOKEN);
-process.on("uncaughtException", (error, reason) => {
-    logger_1.default.Logger.error(`${error}-${reason}`);
-    return logger_1.default.Logger.write(logger_1.default.WriteTypes.Error, `${error}-${reason}`);
-});
+// process.on("uncaughtException", (error) => {
+//     logger.Logger.error(error);
+//     return logger.Logger.write(logger.WriteTypes.Error, error);
+// });
 exports.default = client;

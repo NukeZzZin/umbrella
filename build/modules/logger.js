@@ -32,7 +32,7 @@ class Logger {
     static async write(mode = WriteTypes.Error, message, ..._message) {
         const stream = await fs_1.default.createWriteStream(path_1.default.join(__dirname, `../../logs/${mode}_${(0, moment_1.default)().format("YYYY-MM-DD")}.log`), { encoding: "utf-8", flags: "a" });
         return stream.write(`[${mode.toUpperCase()}] ${(0, moment_1.default)().toISOString(true)}: ${message}\r\n`, (error) => {
-            return this.error(error);
+            // return this.error(error);
         });
     }
 }

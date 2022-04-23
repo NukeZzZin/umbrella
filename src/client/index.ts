@@ -18,14 +18,25 @@ client.on("ready", () => {
             type: "PLAYING"
         }],
         status: "dnd"
-    })
+    });
+    logger.Logger.write(logger.WriteTypes.Info, `Bot or Shard running processID is 0x${process.pid.toString(16)} (${process.pid}).`)
 });
 
 client.login(process.env.DISCORD_TOKEN);
 
-process.on("uncaughtException", (error, reason) => {
-    logger.Logger.error(`${error}-${reason}`);
-    return logger.Logger.write(logger.WriteTypes.Error, `${error}-${reason}`);
+process.on("unhandledRejection", (error) => {
+    logger.Logger.error(error);
+    return logger.Logger.write(logger.WriteTypes.Error, error);
+});
+
+process.on("uncaughtException", (error) => {
+    logger.Logger.error(error);
+    return logger.Logger.write(logger.WriteTypes.Error, error);
+});
+
+process.on("uncaughtExceptionMonitor", (error) => {
+    logger.Logger.error(error);
+    return logger.Logger.write(logger.WriteTypes.Error, error);
 });
 
 export default client;
