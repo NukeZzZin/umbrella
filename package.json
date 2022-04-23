@@ -4,7 +4,10 @@
     "license": "GPL-3.0",
     "description": "🧑🏻‍💻 Apenas mais um bot aleatório! 🧑🏻‍💻",
     "scripts": {
-        "dev": "nodemon --config './nodemon.json'"
+        "dev": "nodemon --config './nodemon.json'",
+        "build": "tsc",
+        "test": "jest",
+        "test:watch": "jest --watch"
     },
     "dependencies": {
         "chalk": "^4.1.2",

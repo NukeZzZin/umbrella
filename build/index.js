@@ -37,9 +37,10 @@ const manager = new discord_js_1.default.ShardingManager(path.resolve(__dirname,
     respawn: true
 });
 manager.on("shardCreate", (shard) => {
-    logger_1.default.success(`Shard created with id 0x${shard.id.toString(16)} (${shard.id}) - [${shard.id} of ${manager.totalShards}].`);
+    console.clear();
+    logger_1.default.Logger.success(`Shard created with id 0x${shard.id.toString(16)} (${shard.id}) - [${shard.id + 1} of ${manager.totalShards}].`);
 });
 manager.spawn().catch((error) => {
-    logger_1.default.error(error);
-    return logger_1.default.write(error, "error");
+    logger_1.default.Logger.error(error);
+    return logger_1.default.Logger.write(error, "error");
 });

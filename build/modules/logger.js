@@ -8,7 +8,15 @@ const moment_1 = __importDefault(require("moment"));
 const util_1 = __importDefault(require("util"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-class logger {
+var WriteTypes;
+(function (WriteTypes) {
+    WriteTypes["Error"] = "error";
+    WriteTypes["Info"] = "info";
+    WriteTypes["Test"] = "test";
+    WriteTypes["Warn"] = "warn";
+})(WriteTypes || (WriteTypes = {}));
+// TODO: performance improvement.
+class Logger {
     static success(message, ..._message) {
         return console.log(`[${chalk_1.default.green("SUCCESS")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${util_1.default.format(message)} ${util_1.default.format(..._message)}`);
     }
@@ -21,11 +29,11 @@ class logger {
     static test(message, ..._message) {
         return console.log(`[${chalk_1.default.yellow("TEST")}] ${chalk_1.default.bold.black((0, moment_1.default)().format("HH:MM:SS"))} ${util_1.default.format(message)} ${util_1.default.format(..._message)}`);
     }
-    static async write(message, mode) {
+    static async write(mode = WriteTypes.Error, message, ..._message) {
         const stream = await fs_1.default.createWriteStream(path_1.default.join(__dirname, `../../logs/${mode}_${(0, moment_1.default)().format("YYYY-MM-DD")}.log`), { encoding: "utf-8", flags: "a" });
         return stream.write(`[${mode.toUpperCase()}] ${(0, moment_1.default)().toISOString(true)}: ${message}\r\n`, (error) => {
             return this.error(error);
         });
     }
 }
-exports.default = logger;
+exports.default = { WriteTypes, Logger };

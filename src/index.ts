@@ -12,10 +12,11 @@ const manager = new Discord.ShardingManager(path.resolve(__dirname, "../build/cl
 });
 
 manager.on("shardCreate", (shard) => {
-    logger.success(`Shard created with id 0x${shard.id.toString(16)} (${shard.id}) - [${shard.id + 1} of ${manager.totalShards}].`);
+    console.clear();
+    logger.Logger.success(`Shard created with id 0x${shard.id.toString(16)} (${shard.id}) - [${shard.id + 1} of ${manager.totalShards}].`);
 });
 
 manager.spawn().catch((error) => {
-    logger.error(error);
-    return logger.write(error, "error");
+    logger.Logger.error(error);
+    return logger.Logger.write(error, "error");
 });

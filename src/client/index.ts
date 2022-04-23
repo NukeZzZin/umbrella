@@ -8,10 +8,10 @@ const client = new Discord.Client({
 });
 
 client.on("ready", () => {
-    logger.success(`Bot running processID is 0x${process.pid.toString(16)} (${process.pid}).`);
-    logger.info(`Bot running in version ${process.env.VERSION}.`);
-    logger.info(`Released under the ${process.env.LICENSE}.`);
-    logger.info(`Bot invite link is https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&scope=bot&permissions=2080374975.`);
+    logger.Logger.success(`Bot running processID is 0x${process.pid.toString(16)} (${process.pid}).`);
+    logger.Logger.info(`Bot running in version ${process.env.VERSION}.`);
+    logger.Logger.info(`Released under the ${process.env.LICENSE}.`);
+    logger.Logger.info(`Bot invite link is https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&scope=bot&permissions=2080374975.`);
     client.user?.setPresence({
         activities: [{
             name: "⚔️ No, I’m not feeling violent, I’m feeling creative with weapons. ⚔️",
@@ -21,9 +21,11 @@ client.on("ready", () => {
     })
 });
 
-process.on("uncaughtException", (error) => {
-    logger.error(error);
-    return logger.write(error, "error");
+client.login(process.env.DISCORD_TOKEN);
+
+process.on("uncaughtException", (error, reason) => {
+    logger.Logger.error(`${error}-${reason}`);
+    return logger.Logger.write(logger.WriteTypes.Error, `${error}-${reason}`);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+export default client;
