@@ -6,7 +6,7 @@ import * as os from "os";
 import "dotenv/config";
 
 const manager = new Discord.ShardingManager(path.resolve(__dirname, "../build/client/index.js"), {
-    totalShards: os.cpus().length+10,
+    totalShards: os.cpus().length, //TODO: config to host
     token: process.env.DISCORD_TOKEN,
     respawn: true
 });

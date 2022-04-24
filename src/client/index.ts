@@ -24,19 +24,17 @@ client.on("ready", () => {
 
 client.login(process.env.DISCORD_TOKEN);
 
-process.on("unhandledRejection", (error) => {
-    logger.Logger.error(error);
-    return logger.Logger.write(logger.WriteTypes.Error, error);
+process.on("unhandledRejection", (error, origin) => {
+    logger.Logger.error(`${error}-${origin}`);
+    return logger.Logger.write(logger.WriteTypes.Error, `${error}-${origin}`);
 });
 
-process.on("uncaughtException", (error) => {
-    logger.Logger.error(error);
-    return logger.Logger.write(logger.WriteTypes.Error, error);
+process.on("uncaughtException", (error, origin) => {
+    logger.Logger.error(`${error}-${origin}`);
+    return logger.Logger.write(logger.WriteTypes.Error, `${error}-${origin}`);
 });
 
-process.on("uncaughtExceptionMonitor", (error) => {
-    logger.Logger.error(error);
-    return logger.Logger.write(logger.WriteTypes.Error, error);
+process.on("uncaughtExceptionMonitor", (error, origin) => {
+    logger.Logger.error(`${error}-${origin}`);
+    return logger.Logger.write(logger.WriteTypes.Error, `${error}-${origin}`);
 });
-
-export default client;

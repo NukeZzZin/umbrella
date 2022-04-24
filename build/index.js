@@ -32,7 +32,7 @@ const path = __importStar(require("path"));
 const os = __importStar(require("os"));
 require("dotenv/config");
 const manager = new discord_js_1.default.ShardingManager(path.resolve(__dirname, "../build/client/index.js"), {
-    totalShards: os.cpus().length + 10,
+    totalShards: os.cpus().length,
     token: process.env.DISCORD_TOKEN,
     respawn: true
 });
@@ -40,4 +40,7 @@ manager.on("shardCreate", (shard) => {
     console.clear();
     logger_1.default.Logger.success(`Shard created with id 0x${shard.id.toString(16)} (${shard.id}) - [${shard.id + 1} of ${manager.totalShards}].`);
 });
-manager.spawn();
+manager.spawn().catch((error) => {
+    logger_1.default.Logger.error(error);
+    return logger_1.default.Logger.write(logger_1.default.WriteTypes.Error, error);
+});
