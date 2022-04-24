@@ -10,23 +10,23 @@ enum WriteTypes {
     Test = "test",
     Warn = "warn"
 }
-
+possível melhoria de desempenho
 // TODO: performance improvement.
 class Logger {
-    public static success(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.green("SUCCESS")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
+    public static success(message?: any, ..._message: any[]): boolean {
+		return process.stdout.write(`[${chalk.green("SUCCESS")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}\r\n`);
     }
 
-    public static error(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.red("ERROR")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
+    public static error(message?: any, ..._message: any[]): boolean {
+		return process.stdout.write(`[${chalk.red("ERROR")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}\r\n`);
 	}
 
-	public static info(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.cyan("INFO")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
+	public static info(message?: any, ..._message: any[]): boolean {
+		return process.stdout.write(`[${chalk.cyan("INFO")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}\r\n`);
 	}
 
-	public static test(message?: any, ..._message: any[]): void {
-		return console.log(`[${chalk.yellow("TEST")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}`);
+	public static test(message?: any, ..._message: any[]): boolean {
+		return process.stdout.write(`[${chalk.yellow("TEST")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}\r\n`);
 	}
 
     public static async write(mode: WriteTypes = WriteTypes.Error, message?: any, ..._message: any[]): Promise<boolean> {
