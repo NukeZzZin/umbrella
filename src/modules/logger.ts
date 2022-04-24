@@ -10,8 +10,7 @@ enum WriteTypes {
     Test = "test",
     Warn = "warn"
 }
-possível melhoria de desempenho
-// TODO: performance improvement.
+
 class Logger {
     public static success(message?: any, ..._message: any[]): boolean {
 		return process.stdout.write(`[${chalk.green("SUCCESS")}] ${chalk.bold.black(moment().format("HH:MM:SS"))} ${util.format(message)} ${util.format(..._message)}\r\n`);
