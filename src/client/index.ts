@@ -43,6 +43,8 @@ fs.readdirSync(path.resolve(__dirname, "./handlers/events")).filter(async (file)
 			client.on(props.event, props.run);
 		} catch (error) {
 			return logger.Logger.write(logger.WriteTypes.Error, error);
+		} finally {
+			delete require.cache[path.resolve(__dirname, "./handlers/events")];
 		}
 	} else return;
 });
@@ -58,6 +60,8 @@ fs.readdirSync(path.resolve(__dirname, "./handlers/commands")).filter(async (fil
 			client.commands.set(props.name, props);
 		} catch (error) {
 			return logger.Logger.write(logger.WriteTypes.Error, error);
+		} finally {
+			delete require.cache[path.resolve(__dirname, "./handlers/commands")];
 		}
 	} else return;
 });
