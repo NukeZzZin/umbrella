@@ -6,8 +6,6 @@ import Discord from "discord.js";
 import * as path from "path";
 import * as fs from "fs";
 
-import "dotenv/config";
-
 const client = new Client({
     messageCacheLifetime: 60,
     intents: [new Discord.Intents(0x7FFF)],
@@ -17,11 +15,11 @@ const client = new Client({
     },
 });
 
-client.on("ready", () => {
+client.on(Discord.Constants.Events.CLIENT_READY, () => {
     logger.Logger.success(`Bot running processID is 0x${process.pid.toString(16)} (${process.pid}).`);
-    logger.Logger.info(`Bot running in version ${process.env.VERSION}.`);
-    logger.Logger.info(`Released under the ${process.env.LICENSE}.`);
-    logger.Logger.info(`Bot invite link is https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&scope=bot&permissions=2080374975.`);
+    logger.Logger.info(`Bot running in version ${client.dotenv.VERSION}.`);
+    logger.Logger.info(`Released under the ${client.dotenv.LICENSE}.`);
+    logger.Logger.info(`Bot invite link is https://discord.com/oauth2/authorize?client_id=${client.dotenv.DISCORD_ID}&scope=bot&permissions=2080374975.`);
     client.user?.setPresence({
         activities: [{
             name: "⚔️ No, I’m not feeling violent, I’m feeling creative with weapons. ⚔️",
@@ -29,7 +27,6 @@ client.on("ready", () => {
         }],
         status: "dnd"
     });
-    logger.Logger.write(logger.WriteTypes.Info, `Bot or Shard running processID is 0x${process.pid.toString(16)} (${process.pid}).`)
 });
 
 fs.readdirSync(path.resolve(__dirname, "./handlers/events")).filter(async (file) => {
@@ -40,7 +37,7 @@ fs.readdirSync(path.resolve(__dirname, "./handlers/events")).filter(async (file)
 				props = Object.assign((props as any).default, props);
 				delete (props as any).default;
 			}
-			client.on(props.event, props.run);
+			client.on(props.event, props.run.bind(null, client));
 		} catch (error) {
 			return logger.Logger.write(logger.WriteTypes.Error, error);
 		} finally {
@@ -66,16 +63,16 @@ fs.readdirSync(path.resolve(__dirname, "./handlers/commands")).filter(async (fil
 	} else return;
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(client.dotenv.DISCORD_TOKEN);
 
 process.on("unhandledRejection", (error, origin) => {
-    return logger.Logger.write(logger.WriteTypes.Error, `[${origin}] - ${error}\n`);
+    return logger.Logger.write(logger.WriteTypes.Error, `[${origin}] - ${error}`);
 });
 
 process.on("uncaughtException", (error, origin) => {
-    return logger.Logger.write(logger.WriteTypes.Error, `[${origin}] - ${error}\n`);
+    return logger.Logger.write(logger.WriteTypes.Error, `[${origin}] - ${error}`);
 });
 
 process.on("uncaughtExceptionMonitor", (error, origin) => {
-    return logger.Logger.write(logger.WriteTypes.Error, `[${origin}] - ${error}\n`);
+    return logger.Logger.write(logger.WriteTypes.Error, `[${origin}] - ${error}`);
 });
